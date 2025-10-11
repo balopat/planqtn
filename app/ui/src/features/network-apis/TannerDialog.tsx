@@ -28,6 +28,7 @@ interface TannerDialogProps {
   onSubmit: (matrix: number[][], logical_legs: number[]) => void;
   defaultStabilizer?: string;
   title?: string;
+  legoDialog?: boolean;
   cssOnly?: boolean;
   showLogicalLegs?: boolean;
   helpUrl?: string;
@@ -38,6 +39,7 @@ export const TannerDialog: React.FC<TannerDialogProps> = ({
   onClose,
   onSubmit,
   title = "Create Tanner Network",
+  legoDialog = false,
   cssOnly = false,
   showLogicalLegs = true,
   defaultStabilizer = `XXXX\nZZZZ`,
@@ -150,7 +152,7 @@ export const TannerDialog: React.FC<TannerDialogProps> = ({
       const matrix = parseMatrix(input);
 
       // Validate the matrix
-      if (matrix.length === 0 || matrix[0].length === 0) {
+      if (input.length === 0 || matrix.length === 0 || matrix[0].length === 0) {
         throw new Error("Matrix cannot be empty");
       }
 
@@ -327,15 +329,6 @@ export const TannerDialog: React.FC<TannerDialogProps> = ({
                   handleSubmit();
                 }
               }}
-              placeholder={
-                useStabilizer
-                  ? defaultStabilizer
-                  : cssOnly
-                    ? "0011\n1100"
-                    : title === "Measurement State Prep Network"
-                      ? "11110000\n00001100\n00000011"
-                      : "1010\n0101\n1100"
-              }
               rows={10}
               fontFamily="monospace"
             />
@@ -370,7 +363,7 @@ export const TannerDialog: React.FC<TannerDialogProps> = ({
             Cancel (Esc)
           </Button>
           <Button colorScheme="blue" onClick={handleSubmit}>
-            Create Network (Ctrl+Enter)
+            {legoDialog ? "Create Lego" : "Create Network"} (Ctrl+Enter)
           </Button>
         </ModalFooter>
       </ModalContent>

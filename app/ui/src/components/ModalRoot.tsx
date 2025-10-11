@@ -254,6 +254,7 @@ export const ModalRoot: React.FC<ModalRootProps> = ({
       {/* Custom Lego Dialog */}
       {customLegoDialog && (
         <TannerDialog
+          legoDialog={true}
           isOpen={customLegoDialog}
           onClose={closeCustomLegoDialog}
           onSubmit={handleCustomLegoSubmit}
